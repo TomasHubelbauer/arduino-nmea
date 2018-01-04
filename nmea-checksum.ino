@@ -2,38 +2,38 @@ void setup() {
   Serial.begin(9600);
   Serial.println();
 
-  double pressure = 1018.35;
-  
-  String sentence;
-  
-  // Uncomment the following lines and comment the lines below for a real life example:
-  sentence += "$POV,P,";
-  sentence += String(pressure);
-  sentence += "*";
-  
-  // Uncomment the following lines and comment the lines above for an example from http://elimelecsarduinoprojects.blogspot.cz/2013/07/nmea-checksum-calculator.html
-  //sentence += "$test*";
-  
+  printSentenceWithChecksum("$POV,P," + String(1018.35) + "*", false); // 39
+  printSentenceWithChecksum("$test*", false); // 16
+  printSentenceWithChecksum("$POV,P,951.78*", false); // 05
+  printSentenceWithChecksum("$POV,P,951.84*", false); // 06
+}
+
+void printSentenceWithChecksum(String sentence, bool printLogs) {
+  String sentenceWithChecksum = withChecksum(sentence, printLogs);
+  Serial.println(sentenceWithChecksum);
+}
+
+String withChecksum(String sentence, bool printLogs) {
   // http://www.hhhh.org/wiml/proj/nmeaxor.html
   bool started = false;
   char checksum = 0;
   for (int index = 0; index < sentence.length(); index++) {
     if (index > 0 && sentence[index - 1] == '$') {
-      Serial.println("Found first checksum char:");
-      Serial.println(sentence[index]);
-      Serial.println(sentence[index], HEX);
-      Serial.println("Set as initial 'last step result'.");
-      Serial.println();
+      if (printLogs) Serial.println("Found first checksum char:");
+      if (printLogs) Serial.println(sentence[index]);
+      if (printLogs) Serial.println(sentence[index], HEX);
+      if (printLogs) Serial.println("Set as initial 'last step result'.");
+      if (printLogs) Serial.println();
       checksum = sentence[index];
       started = true;
       continue; // Skip the rest of this loop iteration.
     }
     
     if (sentence[index] == '*') {
-      Serial.println("Reached the end of checksum chars.");
-      Serial.println("Final checksum:");
-      Serial.println(checksum, HEX);
-      Serial.println();
+      if (printLogs) Serial.println("Reached the end of checksum chars.");
+      if (printLogs) Serial.println("Final checksum:");
+      if (printLogs) Serial.println(checksum, HEX);
+      if (printLogs) Serial.println();
       break; // Exit the loop.
     }
     
@@ -42,20 +42,21 @@ void setup() {
       continue; // Skip the rest of this loop iteration.
     }
     
-    Serial.println("Xorring last step result and current char.");
-    Serial.println(checksum, HEX);
-    Serial.println(sentence[index]);
-    Serial.println(sentence[index], HEX);
+    if (printLogs) Serial.println("Xoring last step result and current char.");
+    if (printLogs) Serial.println(checksum, HEX);
+    if (printLogs) Serial.println(sentence[index]);
+    if (printLogs) Serial.println(sentence[index], HEX);
     
     checksum = checksum xor sentence[index];
-    Serial.println("Got new last step result:");
-    Serial.println(checksum, HEX);
-    Serial.println();
+    if (printLogs) Serial.println("Got new last step result:");
+    if (printLogs) Serial.println(checksum, HEX);
+    if (printLogs) Serial.println();
   }
   
-  sentence += String(checksum, HEX);
-  Serial.println("Sentence with checksum:");
-  Serial.println(sentence);
+  String sentenceWithChecksum = sentence + (checksum < 10 ? "0" : "") + String(checksum, HEX);
+  if (printLogs) Serial.println("Sentence with checksum:");
+  if (printLogs) Serial.println(sentenceWithChecksum);
+  return sentenceWithChecksum;
 }
 
 void loop() {
