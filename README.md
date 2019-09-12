@@ -1,5 +1,7 @@
 # Arduino NMEA checksum
 
+NMEA implementation for Arduino. I am trying to figure out how to run this in an emulator now:
+
 ```sh
 # Download Arduino CLI 0.5.0
 curl -L https://github.com/arduino/arduino-cli/releases/download/0.5.0/arduino-cli_0.5.0_Linux_64bit.tar.gz -o arduino-cli.tar.gz
@@ -26,3 +28,9 @@ cd simavr
 # - Print the serial messages to the terminal
 # - Try PicSimLab to see for serial https://github.com/lcgamboa/picsimlab/issues/8
 ```
+
+## To-Do
+
+Figure https://github.com/buserror/simavr/issues/345 and https://github.com/lcgamboa/picsimlab/issues/8
+
+Set GitHub Actions workflow to run this on each push
