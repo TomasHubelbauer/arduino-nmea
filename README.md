@@ -14,3 +14,7 @@ $POV,P,951.84*06..
 ```
 
 Check out `.github/workflows/ci.yml` to see how to run this sketch in an emulator.
+
+## To-Do
+
+Add a case (and test) with some text before `$`, like `printSentenceWithChecksum("test$test*", false); // 16`.
