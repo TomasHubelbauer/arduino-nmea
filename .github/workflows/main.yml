@@ -32,4 +32,4 @@ jobs:
         cat nmea-checksum.ino.clog | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" > nmea-checksum.ino.log
         cat nmea-checksum.ino.log
         # Check if the produced file matches the expected file
-        diff nmea-checksum.ino.log nmea-checksum.ino.test
+        diff nmea-checksum.ino.log ../../nmea-checksum.ino.test
