@@ -9,7 +9,7 @@ jobs:
       run: |
         set -x
         # Download and install the latest Arduino CLI
-        curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+        curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=/home/runner/work/arduino-nmea-checksum/arduino-nmea-checksum/bin sh
         # Update index, install the AVR core and compile the sketch (into ELF and HEX) for the Uno
         arduino-cli core update-index
         arduino-cli core install arduino:avr
