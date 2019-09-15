@@ -19,15 +19,9 @@ jobs:
         ./arduino-cli compile -b arduino:avr:uno nmea-checksum.ino
         # Install dependencies for building SimAVR
         sudo apt-get update
-        sudo apt-get install -y build-essential libelf-dev avr-libc gcc-avr freeglut3-dev libncurses5-dev pkg-config
-        # Close the SimAVR repo and build it
-        git clone https://github.com/buserror/simavr.git
-        cd simavr
-        make
-        # Go to the compiled artifacts where `run_avr` is now
-        cd simavr
+        sudo apt-get install -y simavr
         # Start the simulation with a timeout of 10 seconds (because of the infinite loop)
-        timeout 10 ./run_avr -m atmega168 -f 16000000 ../../nmea-checksum.ino.arduino.avr.uno.elf &> nmea-checksum.ino.clog || true
+        timeout 10 ./run_avr -m atmega168 -f 16000000 nmea-checksum.ino.arduino.avr.uno.elf &> nmea-checksum.ino.clog || true
         # Strip ANSI color codes from the output
         cat nmea-checksum.ino.clog | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" > nmea-checksum.ino.log
         cat nmea-checksum.ino.log
