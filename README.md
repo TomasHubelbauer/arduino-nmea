@@ -18,3 +18,6 @@ Check out `.github/workflows/ci.yml` to see how to run this sketch in an emulato
 ## To-Do
 
 Add a case (and test) with some text before `$`, like `printSentenceWithChecksum("test$test*", false); // 16`.
+
+Download the latest CLI without hardcoding the version https://github.com/arduino/arduino-cli/issues/407.
+See related work in the `arduino-cli-latest` branch.
