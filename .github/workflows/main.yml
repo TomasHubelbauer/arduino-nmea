@@ -8,15 +8,12 @@ jobs:
     - name: Validate expected output
       run: |
         set -x
-        # Download Arduino CLI 0.5.0
-        curl -L https://github.com/arduino/arduino-cli/releases/download/0.5.0/arduino-cli_0.5.0_Linux_64bit.tar.gz -o arduino-cli.tar.gz
-        # Extract the archive to get `arduino-cli`
-        tar -xvzf arduino-cli.tar.gz
-        # Update index and install the AVR core
-        ./arduino-cli core update-index
-        ./arduino-cli core install arduino:avr
-        # Compile the sketch to get the HEX and ELF files
-        ./arduino-cli compile -b arduino:avr:uno nmea-checksum.ino
+        # Download and install the latest Arduino CLI
+        curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sh
+        # Update index, install the AVR core and compile the sketch (into ELF and HEX) for the Uno
+        arduino-cli core update-index
+        arduino-cli core install arduino:avr
+        arduino-cli compile -b arduino:avr:uno nmea-checksum.ino
         # Install dependencies for building SimAVR
         sudo apt-get update
         sudo apt-get install -y build-essential libelf-dev avr-libc gcc-avr freeglut3-dev libncurses5-dev pkg-config
