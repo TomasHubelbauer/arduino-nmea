@@ -17,8 +17,6 @@ Check out `.github/workflows/ci.yml` to see how to run this sketch in an emulato
 
 ## To-Do
 
-Add a case (and test) with some text before `$`, like `printSentenceWithChecksum("test$test*", false); // 16`.
-
 Figure out why using SimAVR through Aptitude results in a crash or encourage the
 maintainer to publish the latest version where it might work. https://github.com/buserror/simavr/pull/346
 See related work in the `apt-simavr` branch.
