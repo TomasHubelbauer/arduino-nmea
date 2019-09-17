@@ -24,7 +24,7 @@ jobs:
         # Go to the compiled artifacts where `run_avr` is now
         cd simavr
         # Start the simulation with a timeout of 10 seconds (because of the infinite loop)
-        timeout 10 ./run_avr -m atmega168 -f 16000000 ../../nmea-checksum.ino.arduino.avr.uno.elf &> nmea-checksum.ino.clog || true
+        timeout 10 ./run_avr -m atmega168 -f 16000000 ../../nmea-checksum.ino.arduino.avr.uno.elf 2> nmea-checksum.ino.clog || true
         # Strip ANSI color codes from the output
         cat nmea-checksum.ino.clog | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" > nmea-checksum.ino.log
         cat nmea-checksum.ino.log
