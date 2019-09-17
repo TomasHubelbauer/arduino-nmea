@@ -3,6 +3,7 @@ void setup() {
   Serial.println();
 
   printSentenceWithChecksum("$POV,P," + String(1018.35) + "*", false); // 39
+  printSentenceWithChecksum("test$test*", false); // 16
   printSentenceWithChecksum("$test*", false); // 16
   printSentenceWithChecksum("$POV,P,951.78*", false); // 05
   printSentenceWithChecksum("$POV,P,951.84*", false); // 06
