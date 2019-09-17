@@ -19,9 +19,6 @@ Check out `.github/workflows/ci.yml` to see how to run this sketch in an emulato
 
 Add a case (and test) with some text before `$`, like `printSentenceWithChecksum("test$test*", false); // 16`.
 
-Download the latest CLI without hardcoding the version https://github.com/arduino/arduino-cli/issues/407.
-See related work in the `arduino-cli-latest` branch.
-
 Figure out why using SimAVR through Aptitude results in a crash or encourage the
 maintainer to publish the latest version where it might work. https://github.com/buserror/simavr/pull/346
 See related work in the `apt-simavr` branch.
