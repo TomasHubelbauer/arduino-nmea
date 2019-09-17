@@ -3,6 +3,6 @@ $POV,P,1018.35*39..
 $test*16..
 $POV,P,951.78*05..
 $POV,P,951.84*06..
-Loaded 5246 .text at address 0x0
+Loaded 5230 .text at address 0x0
 Loaded 74 .data
 signal caught, simavr terminating
