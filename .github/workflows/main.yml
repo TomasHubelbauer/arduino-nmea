@@ -6,7 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install latest Arduino CLI
-      uses: Arduino/actions/setup-arduino-cli@master
+      uses: arduino/actions/setup-arduino-cli@master
     - name: Validate expected output
       run: |
         set -x
