@@ -17,7 +17,7 @@ jobs:
         # Install dependencies for building SimAVR
         sudo apt-get update
         sudo apt-get install -y build-essential libelf-dev avr-libc gcc-avr freeglut3-dev libncurses5-dev pkg-config
-        # Close the SimAVR repo and build it
+        # Clone the SimAVR repo and build it
         git clone https://github.com/buserror/simavr.git
         cd simavr
         make
