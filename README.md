@@ -23,7 +23,9 @@ Check out `.github/workflows/ci.yml` to see how to run this sketch in an emulato
 
 See related work in the `apt-simavr` branch.
 
-### Try using the Arduino Builder in parallel to the Arduino CLI
+### Finalize the Arduino Builder run
 
-It should be the same thing as the Builder seems to use the CLI, but it will be
-helpful to have an example of using both for CD.
+Supply the `-hardware` switch by downloading and extracing the Arduino IDE and
+using the `hardware` folder that comes with it.
+
+https://github.com/arduino/arduino-builder#usage
