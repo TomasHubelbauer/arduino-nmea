@@ -31,8 +31,8 @@ jobs:
         go get github.com/schollz/closestmatch
         go get github.com/arduino/arduino-builder
         go build github.com/arduino/arduino-builder
-        # TODO
-        ls
+        # Run the Arduino Builder
+        ./arduino-builder -fqbn arduino:avr:uno nmea-checksum.ino
     - name: Validate expected output
       run: |
         set -x
