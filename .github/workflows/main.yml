@@ -16,8 +16,7 @@ jobs:
         tar xf arduino-1.8.10-linux64.tar.xz
         cd arduino-1.8.10
         # Run the Arduino Builder
-        cp ../nmea-checksum.ino .
-        ./arduino-builder -hardware hardware -tools tools -tools hardware/tools -tools tools-builder -build-path . -fqbn arduino:avr:uno nmea-checksum.ino
+        ./arduino-builder -hardware hardware -tools tools -tools hardware/tools -tools tools-builder -build-path . -fqbn arduino:avr:uno ../nmea-checksum.ino
         ls
     - name: Validate expected output
       run: |
