@@ -23,9 +23,10 @@ Check out `.github/workflows/ci.yml` to see how to run this sketch in an emulato
 
 See related work in the `apt-simavr` branch.
 
-### Finalize the Arduino Builder run
+### Fix the Builder not being able to find dependencies
 
-Supply the `-hardware` switch by downloading and extracing the Arduino IDE and
-using the `hardware` folder that comes with it.
+Currently the optional build with Builder fails because of this.
 
-https://github.com/arduino/arduino-builder#usage
+### Run SimAVR on both the Arduino CLI and the Arduino Builder builds
+
+Compare both to the expected output.
