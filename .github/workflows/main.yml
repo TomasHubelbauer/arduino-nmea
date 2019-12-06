@@ -12,6 +12,9 @@ jobs:
       run: |
         set -x
         version=1.5.0
+        # Download the Arduino IDE for the `hardware` folder
+        curl https://downloads.arduino.cc/arduino-1.8.10-linux64.tar.xz -O
+        tar xvf arduino-1.8.10-linux64.tar.xz
         # Download and extract the Arduino Builder
         curl -L -o arduino-builder-${version}.tar.xz https://github.com/arduino/arduino-builder/releases/download/${version}/arduino-builder-${version}.tar.xz
         tar -xvf arduino-builder-${version}.tar.xz
@@ -32,7 +35,7 @@ jobs:
         go get github.com/arduino/arduino-builder
         go build github.com/arduino/arduino-builder
         # Run the Arduino Builder
-        ./arduino-builder -fqbn arduino:avr:uno nmea-checksum.ino
+        ./arduino-builder -hardware arduino-1.8.10/hardware -fqbn arduino:avr:uno nmea-checksum.ino
     - name: Validate expected output
       run: |
         set -x
