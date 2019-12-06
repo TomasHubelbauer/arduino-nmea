@@ -11,31 +11,13 @@ jobs:
       continue-on-error: true
       run: |
         set -x
-        version=1.5.0
-        # Download the Arduino IDE for the `hardware` folder
+        # Download and extract the Arduino IDE for its `hardware` and `tools` folders and the Arduino Builder itself
         curl https://downloads.arduino.cc/arduino-1.8.10-linux64.tar.xz -O
         tar xf arduino-1.8.10-linux64.tar.xz
-        # Download and extract the Arduino Builder
-        curl -L -o arduino-builder-${version}.tar.xz https://github.com/arduino/arduino-builder/releases/download/${version}/arduino-builder-${version}.tar.xz
-        tar xf arduino-builder-${version}.tar.xz
-        cd arduino-builder-${version}
-        # Install Go dependencies and build the executable
-        go version
-        go get github.com/go-errors/errors
-        go get github.com/stretchr/testify
-        go get github.com/jstemmer/go-junit-report
-        go get -u github.com/arduino/go-paths-helper
-        go get -u github.com/arduino/go-properties-orderedmap
-        go get -u github.com/arduino/go-timeutils
-        go get google.golang.org/grpc
-        go get github.com/golang/protobuf/proto
-        go get golang.org/x/net/context
-        go get github.com/fsnotify/fsnotify
-        go get github.com/schollz/closestmatch
-        go get github.com/arduino/arduino-builder
-        go build github.com/arduino/arduino-builder
+        cd arduino-1.8.10
         # Run the Arduino Builder
-        ./arduino-builder -hardware arduino-1.8.10/hardware -tools arduino-1.8.10/tools -tools arduino-1.8.10/hardware/tools -build-path . -fqbn arduino:avr:uno nmea-checksum.ino
+        cp ../nmea-checksum.ino .
+        ./arduino-builder -hardware hardware -tools tools -tools hardware/tools -tools tools-builder -build-path . -fqbn arduino:avr:uno nmea-checksum.ino
         ls
     - name: Validate expected output
       run: |
