@@ -38,3 +38,14 @@ https://github.com/wokwi/avr8js
 It's not a real Arduino, but if it can output serial data for us to check, it
 might be completely sufficient for just testing this simple algorithm with no
 peripherials.
+
+### Fix Arduino CLI looking up incorrect sketch in the GitHub Actions workflow
+
+The command is `arduino-cli compile -b arduino:avr:uno nmea-checksum` (I tried
+with and without the `.ino` extension). It looks into the correct directory as
+verified using `pwd` in the workflow, but it looks for a file by the name of
+`arduino-nmea-checksum.ino` instead of `nmea-checksum.ino` as passed in through
+the CLI. The CLI documentation below does not seem to indicate my command is not
+correct, so I'm not sure why it is not picking up the right file:
+
+https://arduino.github.io/arduino-cli/latest/getting-started/#compile-and-upload-the-sketch
