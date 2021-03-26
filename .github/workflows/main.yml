@@ -5,8 +5,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Install latest Arduino CLI
-      uses: arduino/actions/setup-arduino-cli@master
+    - name: Install Arduino CLI
+      uses: arduino/setup-arduino-cli@v1.1.1
     - name: Try using the Arduino Builder
       continue-on-error: true
       run: |
