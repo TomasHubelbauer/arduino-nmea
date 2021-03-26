@@ -30,3 +30,11 @@ Currently the optional build with Builder fails because of this.
 ### Run SimAVR on both the Arduino CLI and the Arduino Builder builds
 
 Compare both to the expected output.
+
+### Look into using AVR8JS by Wokwi to simulate the Arduino and check tests
+
+https://github.com/wokwi/avr8js
+
+It's not a real Arduino, but if it can output serial data for us to check, it
+might be completely sufficient for just testing this simple algorithm with no
+peripherials.
