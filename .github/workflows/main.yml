@@ -24,7 +24,8 @@ jobs:
         # Update index, install the AVR core and compile the sketch (into ELF and HEX) for the Uno
         arduino-cli core update-index
         arduino-cli core install arduino:avr
-        arduino-cli compile -b arduino:avr:uno nmea-checksum.ino
+        pwd
+        arduino-cli compile -b arduino:avr:uno nmea-checksum
         # Install dependencies for building SimAVR
         sudo apt-get update
         sudo apt-get install -y build-essential libelf-dev avr-libc gcc-avr freeglut3-dev libncurses5-dev pkg-config
