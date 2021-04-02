@@ -2,8 +2,6 @@
 
 ![](https://github.com/tomashubelbauer/arduino-nmea-checksum/workflows/ci/badge.svg)
 
-[**LIVE**](https://tomashubelbauer.github.io/arduino-nmea-checksum)
-
 NMEA implementation for Arduino.
 
 Example output:
