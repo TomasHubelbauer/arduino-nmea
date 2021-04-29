@@ -16,6 +16,7 @@ catch (error) {
 const program = new Uint16Array(0x8000);
 const cpu = new avr8js.CPU(program);
 
+// Note that in GitHub Actions the file is created by `arduino/compile-sketches`
 try {
   const hex = await fs.promises.readFile('arduino-nmea.hex', 'utf-8');
   parse(hex, new Uint8Array(program.buffer));
