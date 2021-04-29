@@ -11,26 +11,29 @@ jobs:
       with:
         sketch-paths: |
           - .
-    - name: Copy the HEX from a temporary directory over to the working directory
-      run: cp /tmp/arduino-sketch-*/arduino-nmea.ino.hex arduino-nmea.hex
-    - uses: actions/upload-artifact@v2
-      with:
-        name: arduino-nmea.hex
-        path: arduino-nmea.hex
     - name: Use latest Node 16 with top-level await support
       uses: actions/setup-node@v2
       with:
         node-version: 16 # https://github.com/actions/setup-node/issues/257
-    - name: Validate expected output
+    - name: Run the Wokwi simulator and store the serial
       run: |
         set -e
         set -x
+
+        # Copy the HEX from a temporary directory over to the working directory
+        cp /tmp/arduino-sketch-*/arduino-nmea.ino.hex arduino-nmea.hex
 
         # Install NPM dependencies (avr8js)
         npm install
 
         # Run the script to run the sketch using Wokwi
         node .
-
-        # Check if the produced file matches the expected file
-        diff arduino-nmea.uart arduino-nmea.uart.test
+    - name: Upload the HEX and the UART files as drop artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: arduino-nmea.hex
+        path: |
+          arduino-nmea.hex
+          arduino-nmea.uart
+    - name: Compare the actual serial versus the expected serial
+      run: diff --strip-trailing-cr arduino-nmea.uart arduino-nmea.uart.test
