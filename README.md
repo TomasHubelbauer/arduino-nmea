@@ -17,25 +17,13 @@ Check out `.github/workflows/ci.yml` to see how to run this sketch in an emulato
 
 ## To-Do
 
-### Figure out why using SimAVR through Aptitude results in a crash
-
-See related work in the `apt-simavr` branch.
-
 ### Fix the Builder not being able to find dependencies
 
 Currently the optional build with Builder fails because of this.
 
-### Run SimAVR on both the Arduino CLI and the Arduino Builder builds
+### Replace SimAVR with AVR8JS by Wokwi to simulate the Arduino and check tests
 
-Compare both to the expected output.
-
-### Look into using AVR8JS by Wokwi to simulate the Arduino and check tests
-
-https://github.com/wokwi/avr8js
-
-It's not a real Arduino, but if it can output serial data for us to check, it
-might be completely sufficient for just testing this simple algorithm with no
-peripherials.
+https://github.com/TomasHubelbauer/wokwi-nmea-checksum
 
 ### Fix Arduino CLI looking up incorrect sketch in the GitHub Actions workflow
 
