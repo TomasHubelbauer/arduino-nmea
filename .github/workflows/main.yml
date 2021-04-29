@@ -31,7 +31,7 @@ jobs:
     - name: Upload the HEX and the UART files as drop artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: arduino-nmea.hex
+        name: arduino-nmea
         path: |
           arduino-nmea.hex
           arduino-nmea.uart
