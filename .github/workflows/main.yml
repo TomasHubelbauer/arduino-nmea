@@ -17,11 +17,11 @@ jobs:
       uses: arduino/setup-arduino-cli@v1.1.1 # https://github.com/arduino/setup-arduino-cli
     - name: Validate expected output
       run: |
-        ls /tmp/arduino-sketch-*
-        cp /tmp/arduino-sketch-*/arduino-nmea.ino.hex arduino-nmea.hex
-        ls
         set -e
         set -x
+        ls /tmp/arduino-sketch-*
+        cp /tmp/arduino-sketch-*/arduino-nmea.ino.hex arduino-nmea.hex0
+        ls
         # Update index, install the AVR core and compile the sketch (into ELF and HEX) for the Uno
         arduino-cli core update-index
         arduino-cli core install arduino:avr
