@@ -30,4 +30,4 @@ jobs:
         node .
 
         # Check if the produced file matches the expected file
-        diff nmea-checksum.uart nmea-checksum.uart.test
+        diff arduino-nmea.uart arduino-nmea.uart.test
