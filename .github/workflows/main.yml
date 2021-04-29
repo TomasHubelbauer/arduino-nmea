@@ -15,11 +15,16 @@ jobs:
       uses: arduino/setup-arduino-cli@v1.1.1 # https://github.com/arduino/setup-arduino-cli
     - name: Validate expected output
       run: |
+        ls
+        tree
         set -e
         set -x
         # Update index, install the AVR core and compile the sketch (into ELF and HEX) for the Uno
         arduino-cli core update-index
         arduino-cli core install arduino:avr
+        
+        # TODO: Replace with the HEX from the "Compile the sketch" step if possible
+        # https://github.com/arduino/compile-sketches/issues/25
         arduino-cli compile -b arduino:avr:uno nmea-checksum
         # Check if the produced file matches the expected file
-        diff nmea-checksum.ino.uart nmea-checksum.ino.test
+        diff nmea-checksum.uart nmea-checksum.uart.check
