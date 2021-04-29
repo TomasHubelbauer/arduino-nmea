@@ -12,22 +12,15 @@ jobs:
         sketch-paths: |
           - .
         cli-compile-flags: |
-          - --output-dir="$PWD"
+          - --output-dir="$PWD" # TODO: Figure out why this didn't work
     - name: Install Arduino CLI
       uses: arduino/setup-arduino-cli@v1.1.1 # https://github.com/arduino/setup-arduino-cli
     - name: Validate expected output
       run: |
         set -e
         set -x
-        ls /tmp/arduino-sketch-*
-        cp /tmp/arduino-sketch-*/arduino-nmea.ino.hex arduino-nmea.hex0
-        ls
-        # Update index, install the AVR core and compile the sketch (into ELF and HEX) for the Uno
-        arduino-cli core update-index
-        arduino-cli core install arduino:avr
-        
-        # TODO: Replace with the HEX from the "Compile the sketch" step if possible
-        # https://github.com/arduino/compile-sketches/issues/25
-        arduino-cli compile -b arduino:avr:uno nmea-checksum
+        cp /tmp/arduino-sketch-*/arduino-nmea.ino.hex arduino-nmea.hex
+        cat arduino-nmea.hex
+        # TODO: Run https://github.com/TomasHubelbauer/wokwi-nmea-checksum
         # Check if the produced file matches the expected file
         diff nmea-checksum.uart nmea-checksum.uart.check
