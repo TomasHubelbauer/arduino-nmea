@@ -11,6 +11,12 @@ jobs:
       with:
         sketch-paths: |
           - .
+    - name: Copy the HEX from a temporary directory over to the working directory
+      run: cp /tmp/arduino-sketch-*/arduino-nmea.ino.hex arduino-nmea.hex
+    - uses: actions/upload-artifact@v2
+      with:
+        name: arduino-nmea.hex
+        path: arduino-nmea.hex
     - name: Use latest Node 16 with top-level await support
       uses: actions/setup-node@v2
       with:
@@ -19,9 +25,6 @@ jobs:
       run: |
         set -e
         set -x
-
-        # Copy the HEX over to the working directory
-        cp /tmp/arduino-sketch-*/arduino-nmea.ino.hex arduino-nmea.hex
 
         # Install NPM dependencies (avr8js)
         npm install
