@@ -3,8 +3,9 @@ import fs from 'fs';
 import parse from './parse.js';
 import download from './download.js';
 
+// Remove the development copy of arduino-nmea so it doesn't stay if build fails
 try {
-  await fs.promises.unlink('nmea-checksum.uart');
+  await fs.promises.unlink('arduino-nmea.uart');
 }
 catch (error) {
   if (error.code !== 'ENOENT') {
@@ -16,14 +17,14 @@ const program = new Uint16Array(0x8000);
 const cpu = new avr8js.CPU(program);
 
 try {
-  const hex = await fs.promises.readFile('nmea-checksum.hex', 'utf-8');
+  const hex = await fs.promises.readFile('arduino-nmea.hex', 'utf-8');
   parse(hex, new Uint8Array(program.buffer));
   console.log('Reused cached HEX');
 }
 catch (error) {
-  const sketch = await fs.promises.readFile('nmea-checksum.ino', 'utf-8');
+  const sketch = await fs.promises.readFile('arduino-nmea.ino', 'utf-8');
   const { hex, stdout, stderr } = await download('https://hexi.wokwi.com/build', { sketch });
-  await fs.promises.writeFile('nmea-checksum.hex', hex);
+  await fs.promises.writeFile('arduino-nmea.hex', hex);
   parse(hex, new Uint8Array(program.buffer));
   console.log('Compiled sketch to HEX');
   console.log(stdout);
@@ -43,4 +44,4 @@ while (++instruction < 1_000_000) {
 
 const string = String.fromCharCode(...buffer);
 console.log(string);
-await fs.promises.writeFile('nmea-checksum.uart', string);
+await fs.promises.writeFile('arduino-nmea.uart', string);

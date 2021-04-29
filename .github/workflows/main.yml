@@ -11,7 +11,8 @@ jobs:
       with:
         sketch-paths: |
           - .
-    - uses: actions/setup-node@v2
+    - name: Use latest Node 16 with top-level await support
+      uses: actions/setup-node@v2
       with:
         node-version: 16 # https://github.com/actions/setup-node/issues/257
     - name: Validate expected output
