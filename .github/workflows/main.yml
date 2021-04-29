@@ -12,7 +12,7 @@ jobs:
         sketch-paths: |
           - .
         cli-compile-flags: |
-          - "--output-dir ."
+          - --output-dir="$PWD"
     - name: Install Arduino CLI
       uses: arduino/setup-arduino-cli@v1.1.1 # https://github.com/arduino/setup-arduino-cli
     - name: Validate expected output
