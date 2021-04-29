@@ -15,7 +15,7 @@ jobs:
       uses: arduino/setup-arduino-cli@v1.1.1 # https://github.com/arduino/setup-arduino-cli
     - name: Validate expected output
       run: |
-        ls /tmp
+        ls /tmp/arduino-sketch-*
         tree
         set -e
         set -x
