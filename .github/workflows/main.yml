@@ -4,41 +4,19 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - name: Check out the source code
+      uses: actions/checkout@v1
+    - name: Compile the sketch # TODO: Figure out how to get the HEX from this
+      uses: arduino/compile-sketches@v1 # https://github.com/arduino/compile-sketches
     - name: Install Arduino CLI
-      uses: arduino/setup-arduino-cli@v1.1.1
-    - name: Try using the Arduino Builder
-      continue-on-error: true
-      run: |
-        set -x
-        # Download and extract the Arduino IDE for its `hardware` and `tools` folders and the Arduino Builder itself
-        curl https://downloads.arduino.cc/arduino-1.8.10-linux64.tar.xz -O
-        tar xf arduino-1.8.10-linux64.tar.xz
-        cd arduino-1.8.10
-        # Run the Arduino Builder
-        ./arduino-builder -hardware hardware -tools tools -tools hardware/tools -tools tools-builder -build-path . -fqbn arduino:avr:uno ../nmea-checksum.ino
-        ls
+      uses: arduino/setup-arduino-cli@v1.1.1 # https://github.com/arduino/setup-arduino-cli
     - name: Validate expected output
       run: |
+        set -e
         set -x
         # Update index, install the AVR core and compile the sketch (into ELF and HEX) for the Uno
         arduino-cli core update-index
         arduino-cli core install arduino:avr
-        pwd
         arduino-cli compile -b arduino:avr:uno nmea-checksum
-        # Install dependencies for building SimAVR
-        sudo apt-get update
-        sudo apt-get install -y build-essential libelf-dev avr-libc gcc-avr freeglut3-dev libncurses5-dev pkg-config
-        # Clone the SimAVR repo and build it
-        git clone https://github.com/buserror/simavr.git
-        cd simavr
-        make
-        # Go to the compiled artifacts where `run_avr` is now
-        cd simavr
-        # Start the simulation with a timeout of 10 seconds (because of the infinite loop)
-        timeout 10 ./run_avr -m atmega168 -f 16000000 ../../nmea-checksum.ino.arduino.avr.uno.elf 2> nmea-checksum.ino.clog || true
-        # Strip ANSI color codes from the output
-        cat nmea-checksum.ino.clog | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" > nmea-checksum.ino.log
-        cat nmea-checksum.ino.log
         # Check if the produced file matches the expected file
-        diff nmea-checksum.ino.log ../../nmea-checksum.ino.test
+        diff nmea-checksum.ino.uart nmea-checksum.ino.test
