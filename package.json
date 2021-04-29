@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "avr8js": "^0.15.0"
+  }
+}

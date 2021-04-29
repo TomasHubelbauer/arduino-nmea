@@ -6,21 +6,27 @@ jobs:
     steps:
     - name: Check out the source code
       uses: actions/checkout@v1
-    - name: Compile the sketch # TODO: Figure out how to get the HEX from this
+    - name: Compile the sketch # TODO: https://github.com/arduino/compile-sketches/issues/25
       uses: arduino/compile-sketches@v1 # https://github.com/arduino/compile-sketches
       with:
         sketch-paths: |
           - .
-        cli-compile-flags: |
-          - --output-dir="$PWD" # TODO: Figure out why this didn't work
-    - name: Install Arduino CLI
-      uses: arduino/setup-arduino-cli@v1.1.1 # https://github.com/arduino/setup-arduino-cli
+    - uses: actions/setup-node@v2
+      with:
+        node-version: 16 # https://github.com/actions/setup-node/issues/257
     - name: Validate expected output
       run: |
         set -e
         set -x
+
+        # Copy the HEX over to the working directory
         cp /tmp/arduino-sketch-*/arduino-nmea.ino.hex arduino-nmea.hex
-        cat arduino-nmea.hex
-        # TODO: Run https://github.com/TomasHubelbauer/wokwi-nmea-checksum
+
+        # Install NPM dependencies (avr8js)
+        npm install
+
+        # Run the script to run the sketch using Wokwi
+        node .
+
         # Check if the produced file matches the expected file
-        diff nmea-checksum.uart nmea-checksum.uart.check
+        diff nmea-checksum.uart nmea-checksum.uart.test
