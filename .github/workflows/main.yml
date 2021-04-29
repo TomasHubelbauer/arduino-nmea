@@ -8,6 +8,9 @@ jobs:
       uses: actions/checkout@v1
     - name: Compile the sketch # TODO: Figure out how to get the HEX from this
       uses: arduino/compile-sketches@v1 # https://github.com/arduino/compile-sketches
+      with:
+        sketch-paths: |
+          - .
     - name: Install Arduino CLI
       uses: arduino/setup-arduino-cli@v1.1.1 # https://github.com/arduino/setup-arduino-cli
     - name: Validate expected output
