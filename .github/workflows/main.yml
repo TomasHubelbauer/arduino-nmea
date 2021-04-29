@@ -16,7 +16,8 @@ jobs:
     - name: Validate expected output
       run: |
         ls /tmp/arduino-sketch-*
-        tree
+        cp /tmp/arduino-sketch-*/arduino-nmea.ino.hex arduino-nmea.hex
+        ls
         set -e
         set -x
         # Update index, install the AVR core and compile the sketch (into ELF and HEX) for the Uno
