@@ -1,3 +1,5 @@
-# Compiled
-*.elf
-*.hex
+arduino-nmea.hex
+arduino-nmea.uart
+
+# Node
+node_modules
