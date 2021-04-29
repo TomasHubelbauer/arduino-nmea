@@ -18,7 +18,7 @@ String withChecksum(String sentence, bool printLogs) {
   // http://www.hhhh.org/wiml/proj/nmeaxor.html
   bool started = false;
   char checksum = 0;
-  for (int index = 0; index < sentence.length(); index++) {
+  for (uint index = 0; index < sentence.length(); index++) {
     if (index > 0 && sentence[index - 1] == '$') {
       if (printLogs) Serial.println("Found first checksum char:");
       if (printLogs) Serial.println(sentence[index]);
